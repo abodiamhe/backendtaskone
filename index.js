@@ -17,10 +17,11 @@ app.get("/api/hello", async (req, res) => {
   const lon = clientIp.data.lon;
   const city = clientIp.data.city;
   const query = clientIp.data.query;
+  // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}&units=metric`;
 
   try {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appKey}&units=metric`
     );
     const resData = await response.data;
     res.json({
