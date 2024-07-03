@@ -13,12 +13,13 @@ app.get("/api/hello", async (req, res) => {
   const visitor = req.query.visitor_name;
 
   const clientIp = await axios.get("http://ip-api.com/json/");
-  console.log(clientIp.data.city);
-  const city = "abuja"; //clientIp.data.city;
-  const query = clientIp.data.query;
+  const clientIpData = await clientIp.data;
+  console.log(clientIpData);
+  const city = clientIpData.city;
+  const query = clientIpData.query;
   // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}&units=metric`;
 
-  try {
+  if (clientIpData.status === "success") {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appKey}&units=metric`
     );
@@ -28,8 +29,6 @@ app.get("/api/hello", async (req, res) => {
       location: city,
       greeting: `Hello, ${visitor}!, the temperature is ${resData.main.temp} degrees Celcius in ${city}`,
     });
-  } catch (error) {
-    console.log(error);
   }
 });
 
