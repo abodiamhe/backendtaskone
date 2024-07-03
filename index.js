@@ -19,7 +19,7 @@ app.get("/api/hello", async (req, res) => {
   const city = clientIp.data.city;
   const query = clientIp.data.query;
 
-  http: try {
+  try {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}&units=metric`
     );
