@@ -13,9 +13,8 @@ app.get("/api/hello", async (req, res) => {
   const visitor = req.query.visitor_name;
 
   const clientIp = await axios.get("http://ip-api.com/json/");
-  const lat = clientIp.data.lat;
-  const lon = clientIp.data.lon;
-  const city = clientIp.data.city;
+  console.log(clientIp.data.city);
+  const city = "abuja"; //clientIp.data.city;
   const query = clientIp.data.query;
   // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}&units=metric`;
 
