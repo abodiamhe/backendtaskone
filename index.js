@@ -9,15 +9,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const appKey = process.env.API_KEY;
 
-app.get("/api/hello", async (req, res) => {
-  const visitor = req.query.visitor_name;
-
+const fetchClientId = async () => {
   const clientIp = await axios.get("http://ip-api.com/json");
   const clientIpData = await clientIp.data;
   const lat = clientIpData.lat;
   const lon = clientIpData.lon;
   const city = clientIpData.city;
   const query = clientIpData.query;
+
+  return {
+    lat,
+    lon,
+    city,
+    query,
+  };
+};
+
+app.get("/api/hello", async (req, res) => {
+  const visitor = req.query.visitor_name;
+  const { lat, lon, city, query } = await fetchClientId();
+  console.log(lat, lon, city, query);
 
   try {
     const response = await axios.get(
