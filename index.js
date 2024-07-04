@@ -12,13 +12,10 @@ const appKey = process.env.API_KEY;
 app.get("/api/hello", async (req, res) => {
   const visitor = req.query.visitor_name;
 
-  // const clientIp = await axios.get(
-  //   "https://ipinfo.io/json?token=84cc58a73301ae"
-  // ); //http://ip-api.com/json/
-  // const clientIpData = await clientIp.data;
-
-  const request = await fetch("https://ipinfo.io/json?token=84cc58a73301ae");
-  const clientIpData = await request.json();
+  const clientIp = await axios.get(
+    "https://ipinfo.io/json?token=84cc58a73301ae"
+  ); //http://ip-api.com/json/
+  const clientIpData = await clientIp.data;
 
   const city = clientIpData.city;
   const ip = clientIpData.ip;
